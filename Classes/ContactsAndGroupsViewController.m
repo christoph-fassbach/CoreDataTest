@@ -25,13 +25,12 @@
 }
 */
 
-
+/*
 // Implement viewDidLoad to do additional setup after loading the view, typically from a nib.
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self fetch];
 }
-
+*/
 
 /*
 // Override to allow orientations other than the default portrait orientation.
@@ -57,40 +56,49 @@
 
 
 - (void)dealloc {
+	[moc release];
 	[table release];
     [super dealloc];
 }
 
 
-- (void)fetch {
-    NSError *error = nil;
-    BOOL success = [self.fetchedResultsController performFetch:&error];
-    [self.table reloadData];
-}
-
-- (NSFetchedResultsController *)fetchedResultsController {
-    if (fetchedResultsController == nil) {
-		
-        NSFetchRequest *fetchRequest = [[[NSFetchRequest alloc] init] autorelease];
-        [fetchRequest setEntity:[NSEntityDescription entityForName:@"Contact" inManagedObjectContext:self.moc]];
-		NSArray *sortDescriptors = sortDescriptors = [NSArray arrayWithObject:[[[NSSortDescriptor alloc] initWithKey:@"firstName" ascending:YES] autorelease]];
-        [fetchRequest setSortDescriptors:sortDescriptors];
-        fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.moc sectionNameKeyPath:nil cacheName:@"ContactCache"];
-    }    
-    return fetchedResultsController;
-}    
-
 #pragma mark From UITableViewDataSource
 
 - (NSInteger) numberOfSectionsInTableView:(UITableView *)tableView {
 	
-	return [[fetchedResultsController sections] count];
+	NSFetchRequest* requestGroups = [ [ NSFetchRequest alloc ] init ];
+	NSEntityDescription* descriptionGroups = [ NSEntityDescription entityForName:@"Group" 
+														   inManagedObjectContext:self.moc ];
+	[requestGroups setEntity:descriptionGroups];
+	NSError* errorGroups;
+	NSArray* groups = [ self.moc executeFetchRequest:requestGroups error:&errorGroups ];
+	[ requestGroups release ];
+
+	if ( groups ) {
+		return groups.count;
+	}
+	return 0;
+	/**
+	 if alloc/init -> release;
+	 if create/copy -> release;
+	 otherwise it's autorelease'd and we do nothing.
+	 */
 }
 
 - (NSInteger) tableView:(UITableView *)table numberOfRowsInSection:(NSInteger)section {
 	
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-    return [sectionInfo numberOfObjects];
+	NSFetchRequest* requestGroups = [ [ NSFetchRequest alloc ] init ];
+	NSEntityDescription* descriptionGroups = [ NSEntityDescription entityForName:@"Group" 
+														  inManagedObjectContext:self.moc ];
+	[requestGroups setEntity:descriptionGroups];
+	NSError* errorGroups;
+	NSArray* groups = [ self.moc executeFetchRequest:requestGroups error:&errorGroups ];
+
+	Group* group = [ groups objectAtIndex:section ];
+	int count = [ group.contacts count ];
+	[ requestGroups release ];
+	
+	return count;
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView {
@@ -101,16 +109,26 @@
 	NSError* errorGroups;
 	NSArray* groups = [ self.moc executeFetchRequest:requestGroups error:&errorGroups ];
 	
-	NSMutableArray* names = [[NSMutableArray alloc] init];
+	NSMutableArray* names = [[[NSMutableArray alloc] init] autorelease];
 	for (Group* group in groups) {
 		[names addObject:group.groupName];
 	}
+	[requestGroups release];
 	return names;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
-	id <NSFetchedResultsSectionInfo> sectionInfo = [[fetchedResultsController sections] objectAtIndex:section];
-	return [sectionInfo name];
+	NSFetchRequest* requestGroups = [ [ NSFetchRequest alloc ] init ];
+	NSEntityDescription* descriptionGroups = [ NSEntityDescription entityForName:@"Group" 
+														  inManagedObjectContext:self.moc ];
+	[requestGroups setEntity:descriptionGroups];
+	NSError* errorGroups;
+	NSArray* groups = [ self.moc executeFetchRequest:requestGroups error:&errorGroups ];
+	
+	Group* group = [ groups objectAtIndex:section ];
+	[requestGroups release];
+
+	return group.groupName;
 }
 
 - (UITableViewCell *) tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -119,13 +137,28 @@
 	
 	UITableViewCell *contactCell = [tableView dequeueReusableCellWithIdentifier:cellId];
 	if (contactCell == nil) {
-		contactCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellId];
+		contactCell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:cellId] autorelease];
 	}
 	
-	Contact *contact = [fetchedResultsController objectAtIndexPath:indexPath];
+	NSFetchRequest* requestGroups = [ [ NSFetchRequest alloc ] init ];
+	NSEntityDescription* descriptionGroups = [ NSEntityDescription entityForName:@"Group" 
+														  inManagedObjectContext:self.moc ];
+	[requestGroups setEntity:descriptionGroups];
+	NSError* errorGroups;
+	NSArray* groups = [ self.moc executeFetchRequest:requestGroups error:&errorGroups ];
 	
+	Group* group = [ groups objectAtIndex:indexPath.section ];
+	NSSet* contacts = group.contacts;
+	NSEnumerator* contactIt = [contacts objectEnumerator];
+	Contact* contact = [contactIt nextObject];
+	for (int i = 0; i < indexPath.row; ++i) {
+		contact = [contactIt nextObject];
+	}
+
 	contactCell.textLabel.text = contact.firstName;
-	contactCell.detailTextLabel.text = contact.lastName;	
+	contactCell.detailTextLabel.text = contact.lastName;
+
+	[ requestGroups release ];
 	
 	return contactCell;
 }

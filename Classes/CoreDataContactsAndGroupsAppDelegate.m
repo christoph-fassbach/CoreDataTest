@@ -8,17 +8,30 @@
 
 #import "CoreDataContactsAndGroupsAppDelegate.h"
 #import "ContactsAndGroupsViewController.h"
-
-@interface CoreDataContactsAndGroupsAppDelegate (PrivateCoreDataStack)
-@property (nonatomic, retain, readonly) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic, retain, readonly) NSManagedObjectContext *managedObjectContext;
-@property (nonatomic, retain, readonly) NSPersistentStoreCoordinator *persistentStoreCoordinator;
-@end
-
+#import "GroupsViewController.h"
+#import "ContactsViewController.h"
 
 @implementation CoreDataContactsAndGroupsAppDelegate
 
 @synthesize window;
+@synthesize navigationController;
+
+#pragma mark -
+#pragma mark Memory management
+
+- (void)dealloc {
+	
+    [managedObjectContext release];
+    [managedObjectModel release];
+    [persistentStoreCoordinator release];
+    
+	[window release];
+	[navigationController release];
+	[contactsAndGroupsViewController release];
+	[groupsViewController release];
+	[contactsViewController release];
+	[super dealloc];
+}
 
 #pragma mark -
 #pragma mark Application lifecycle
@@ -26,15 +39,28 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch
-	
+#if 0
 	contactsAndGroupsViewController = [[ContactsAndGroupsViewController alloc] initWithNibName:@"ContactsAndGroupsViewController" bundle:nil];
 	contactsAndGroupsViewController.moc = self.managedObjectContext;
 	[window addSubview: contactsAndGroupsViewController.view];
+#endif
+#if 0
+	groupsViewController = [[GroupsViewController alloc] initWithNibName:@"GroupsViewController" bundle:nil];
+	[window addSubview: groupsViewController.view];
+#endif
+#if 0
+	contactsViewController = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
+	contactsViewController.managedObjectContext = self.managedObjectContext;
+	contactsViewController.groupName = @"All";
+	[window addSubview: contactsViewController.view];
+#endif
+#if 1
+	[window addSubview: navigationController.view];
+#endif
     [window makeKeyAndVisible];
 	
 	return YES;
 }
-
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
@@ -54,7 +80,6 @@
         } 
     }
 }
-
 
 #pragma mark -
 #pragma mark Core Data stack
@@ -77,7 +102,6 @@
     return managedObjectContext;
 }
 
-
 /**
  Returns the managed object model for the application.
  If the model doesn't already exist, it is created by merging all of the models found in the application bundle.
@@ -90,7 +114,6 @@
     managedObjectModel = [[NSManagedObjectModel mergedModelFromBundles:nil] retain];    
     return managedObjectModel;
 }
-
 
 /**
  Returns the persistent store coordinator for the application.
@@ -124,7 +147,6 @@
     return persistentStoreCoordinator;
 }
 
-
 #pragma mark -
 #pragma mark Application's Documents directory
 
@@ -134,22 +156,6 @@
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
 }
-
-
-#pragma mark -
-#pragma mark Memory management
-
-- (void)dealloc {
-	
-    [managedObjectContext release];
-    [managedObjectModel release];
-    [persistentStoreCoordinator release];
-    
-	[window release];
-	[contactsAndGroupsViewController release];
-	[super dealloc];
-}
-
 
 @end
 
