@@ -27,6 +27,8 @@
 }
 
 - (NSString *)applicationDocumentsDirectory;
+- (BOOL) prepareCoreDataStore:(NSString*) fileName;
+- (BOOL) prepareCoreDataStore:(NSString*) fileName forceOverwrite:(BOOL) overwrite;
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet UINavigationController *navigationController;

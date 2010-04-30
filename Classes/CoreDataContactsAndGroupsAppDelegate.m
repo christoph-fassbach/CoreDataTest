@@ -13,6 +13,9 @@
 
 @implementation CoreDataContactsAndGroupsAppDelegate
 
+static NSString* testDbFilename = @"Test.sqlite";
+static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
+
 @synthesize window;
 @synthesize navigationController;
 
@@ -37,6 +40,8 @@
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+	
+	
 	
     // Override point for customization after application launch
 #if 0
@@ -125,7 +130,9 @@
         return persistentStoreCoordinator;
     }
 	
-    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: @"CoreDataContactsAndGroups.sqlite"]];
+	[self prepareCoreDataStore:testDbFilename];
+	
+    NSURL *storeUrl = [NSURL fileURLWithPath: [[self applicationDocumentsDirectory] stringByAppendingPathComponent: dbFilename]];
 	
 	NSError *error = nil;
     persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
@@ -155,6 +162,32 @@
  */
 - (NSString *)applicationDocumentsDirectory {
 	return [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject];
+}
+
+- (BOOL) prepareCoreDataStore:(NSString*) fileName {
+	BOOL success = [self prepareCoreDataStore:fileName forceOverwrite:NO];
+	return success;
+}
+
+- (BOOL) prepareCoreDataStore:(NSString*) fileName forceOverwrite:(BOOL) overwrite {
+	NSBundle* appBundle = [NSBundle mainBundle];
+	NSString* sourceDbPath = [appBundle pathForResource:fileName ofType:nil];
+	NSMutableString* destDbPath = [[NSMutableString alloc] initWithString:[self applicationDocumentsDirectory]];
+	[destDbPath appendString:@"/"];
+	[destDbPath appendString:dbFilename];
+	
+	NSFileManager* fileManager = [NSFileManager defaultManager];
+	NSError* error = nil;
+		
+	if ( overwrite ) {
+		[fileManager removeItemAtPath:destDbPath error:&error];
+		NSLog( @"File %@ removed, error %@", destDbPath, error );
+	}
+	
+	BOOL success = [fileManager copyItemAtPath:sourceDbPath toPath:destDbPath error:&error];
+	NSLog( @"Copies %d %@", success, error );
+	
+	return success;
 }
 
 @end
