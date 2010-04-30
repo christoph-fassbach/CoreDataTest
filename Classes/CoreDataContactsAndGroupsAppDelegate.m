@@ -41,8 +41,6 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
-	
-	
     // Override point for customization after application launch
 #if 0
 	contactsAndGroupsViewController = [[ContactsAndGroupsViewController alloc] initWithNibName:@"ContactsAndGroupsViewController" bundle:nil];
