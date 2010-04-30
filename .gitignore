@@ -7,3 +7,4 @@
 # Files in the projects
 *.xcodeproj/*.mode1v3
 *.xcodeproj/*.pbxuser
+*.xcodeproj/*.perspectivev3

@@ -15,6 +15,7 @@
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
 		28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 28D801B30F44B63D00FB423F /* CoreData.framework */; };
+		5915A6FC118B033200791FF2 /* Test.sqlite in Resources */ = {isa = PBXBuildFile; fileRef = 5915A6FB118B033200791FF2 /* Test.sqlite */; };
 		5922C7721189B0D800DDBC40 /* ContactsAndGroupsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5922C7701189B0D800DDBC40 /* ContactsAndGroupsViewController.m */; };
 		5922C7731189B0D800DDBC40 /* ContactsAndGroupsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5922C7711189B0D800DDBC40 /* ContactsAndGroupsViewController.xib */; };
 		5922C86B1189C7FD00DDBC40 /* Contact.m in Sources */ = {isa = PBXBuildFile; fileRef = 5922C8681189C7FD00DDBC40 /* Contact.m */; };
@@ -37,6 +38,7 @@
 		28D801B30F44B63D00FB423F /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* CoreDataContactsAndGroups_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CoreDataContactsAndGroups_Prefix.pch; sourceTree = "<group>"; };
+		5915A6FB118B033200791FF2 /* Test.sqlite */ = {isa = PBXFileReference; lastKnownFileType = file; path = Test.sqlite; sourceTree = "<group>"; };
 		5922C76F1189B0D800DDBC40 /* ContactsAndGroupsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsAndGroupsViewController.h; sourceTree = "<group>"; };
 		5922C7701189B0D800DDBC40 /* ContactsAndGroupsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsAndGroupsViewController.m; sourceTree = "<group>"; };
 		5922C7711189B0D800DDBC40 /* ContactsAndGroupsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ContactsAndGroupsViewController.xib; path = Classes/ContactsAndGroupsViewController.xib; sourceTree = "<group>"; };
@@ -98,6 +100,7 @@
 		29B97314FDCFA39411CA2CEA /* CustomTemplate */ = {
 			isa = PBXGroup;
 			children = (
+				5915A6FB118B033200791FF2 /* Test.sqlite */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -186,6 +189,7 @@
 				5922C7731189B0D800DDBC40 /* ContactsAndGroupsViewController.xib in Resources */,
 				5922C9011189DF0A00DDBC40 /* GroupsViewController.xib in Resources */,
 				5922C9871189E61400DDBC40 /* ContactsViewController.xib in Resources */,
+				5915A6FC118B033200791FF2 /* Test.sqlite in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
