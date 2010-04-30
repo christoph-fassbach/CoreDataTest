@@ -16,6 +16,15 @@
 @synthesize tableView;
 @synthesize managedObjectContext;
 
+
+- (void)dealloc {	
+	[tableView release];
+	[fetchedResultsController release];
+	[managedObjectContext release];
+	
+    [super dealloc];
+}
+
 // This one will never be called, IF the instance is brought up by the Interface Builder Connections!
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
 	if (self == [super initWithNibName:nibName bundle:nibBundle]) {
@@ -58,15 +67,6 @@
     // e.g. self.myOutlet = nil;
 	self.tableView = nil;
 	self.managedObjectContext = nil;
-}
-
-
-- (void)dealloc {
-    [super dealloc];
-	
-	[tableView release];
-	[fetchedResultsController release];
-	[managedObjectContext release];
 }
 
 - (NSFetchedResultsController *)fetchedResultsController {
