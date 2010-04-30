@@ -1,0 +1,9 @@
+# Files in all folders ...
+.DS_Store
+
+# Build folders ...
+/build
+
+# Files in the projects
+*.xcodeproj/*.mode1v3
+*.xcodeproj/*.pbxuser
