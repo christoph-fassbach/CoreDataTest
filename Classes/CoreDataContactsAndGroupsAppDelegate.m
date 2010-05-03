@@ -30,9 +30,6 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
     
 	[window release];
 	[navigationController release];
-	[contactsAndGroupsViewController release];
-	[groupsViewController release];
-	[contactsViewController release];
 	[super dealloc];
 }
 
@@ -42,33 +39,59 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
 	
     // Override point for customization after application launch
-#if 0
-	contactsAndGroupsViewController = [[ContactsAndGroupsViewController alloc] initWithNibName:@"ContactsAndGroupsViewController" bundle:nil];
-	contactsAndGroupsViewController.moc = self.managedObjectContext;
-	[window addSubview: contactsAndGroupsViewController.view];
-#endif
-#if 0
-	groupsViewController = [[GroupsViewController alloc] initWithNibName:@"GroupsViewController" bundle:nil];
-	[window addSubview: groupsViewController.view];
-#endif
-#if 0
-	contactsViewController = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
-	contactsViewController.managedObjectContext = self.managedObjectContext;
-	contactsViewController.groupName = @"All";
-	[window addSubview: contactsViewController.view];
-#endif
-#if 1
+	NSMutableData* data = [[NSMutableData alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/persistence", [self applicationDocumentsDirectory]]];
+	if ( data ) {
+		NSKeyedUnarchiver* archiver = [[NSKeyedUnarchiver alloc] initForReadingWithData:data];
+		if ( ![archiver decodeBoolForKey:@"isGroup"] ) {
+			NSString* groupName = [archiver decodeObjectForKey:@"groupName"];
+			ContactsViewController* contactsViewController = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
+			contactsViewController.managedObjectContext = self.managedObjectContext;
+			contactsViewController.groupName = groupName;
+			[self.navigationController pushViewController:contactsViewController animated:NO];
+			[contactsViewController release];
+		}
+		[archiver release];
+		[data release];
+		NSLog(@"Persistence read");
+	}
+	
 	[window addSubview: navigationController.view];
-#endif
-    [window makeKeyAndVisible];
+	[window makeKeyAndVisible];
 	
 	return YES;
+}
+
+- (void)applicationDidEnterBackground:(UIApplication *)application {
+	[NSFetchedResultsController deleteCacheWithName:@"ContactsCache"];
+	[NSFetchedResultsController deleteCacheWithName:@"GroupsCache"];
+	// save DB if needed
+	[self applicationWillTerminate:application];
+	
+	// save view state
+	NSMutableData* data = [[NSMutableData alloc] init];
+	NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
+	
+	UIViewController* currentView = self.navigationController.visibleViewController;
+	if ( [currentView isKindOfClass:[GroupsViewController class]] ) {
+		[archiver encodeBool:YES forKey:@"isGroup"];
+		[archiver encodeObject:@"" forKey:@"groupName"];		
+	} else {
+		[archiver encodeBool:NO forKey:@"isGroup"];
+		[archiver encodeObject:((ContactsViewController*)currentView).groupName forKey:@"groupName"];		
+	}
+	[archiver finishEncoding];
+	[archiver release];
+	BOOL success = [data writeToFile:[NSString stringWithFormat:@"%@/persistence", [self applicationDocumentsDirectory]] atomically:YES];
+	[data release];
+	NSLog(@"Persistence written %d", success);
 }
 
 /**
  applicationWillTerminate: saves changes in the application's managed object context before the application terminates.
  */
 - (void)applicationWillTerminate:(UIApplication *)application {
+	
+	// Use NSKeyedArchiver to save app state?
 	
     NSError *error = nil;
     if (managedObjectContext != nil) {

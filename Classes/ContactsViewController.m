@@ -33,6 +33,11 @@
 	[self fetchData];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+	[super viewDidDisappear:animated];
+	[NSFetchedResultsController deleteCacheWithName:@"ContactsCache"];
+}
+
 -(void) fetchData {
 	NSError *error = nil;
     BOOL success = [self.fetchedResultsController performFetch:&error];

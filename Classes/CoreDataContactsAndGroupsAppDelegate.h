@@ -14,16 +14,12 @@
 @class ContactsViewController;
 
 @interface CoreDataContactsAndGroupsAppDelegate : NSObject <UIApplicationDelegate> {
-
-    NSManagedObjectModel *managedObjectModel;
-    NSManagedObjectContext *managedObjectContext;	    
-    NSPersistentStoreCoordinator *persistentStoreCoordinator;
+	NSManagedObjectModel *managedObjectModel;
+	NSManagedObjectContext *managedObjectContext;	    
+	NSPersistentStoreCoordinator *persistentStoreCoordinator;
 	
-    UIWindow *window;
+	UIWindow *window;
 	UINavigationController *navigationController;
-	ContactsAndGroupsViewController *contactsAndGroupsViewController;
-	GroupsViewController *groupsViewController;
-	ContactsViewController *contactsViewController;
 }
 
 - (NSString *)applicationDocumentsDirectory;
