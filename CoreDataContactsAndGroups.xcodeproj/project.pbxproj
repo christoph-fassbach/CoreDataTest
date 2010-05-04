@@ -24,7 +24,34 @@
 		5922C9011189DF0A00DDBC40 /* GroupsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5922C8FF1189DF0A00DDBC40 /* GroupsViewController.xib */; };
 		5922C9861189E61400DDBC40 /* ContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5922C9841189E61400DDBC40 /* ContactsViewController.m */; };
 		5922C9871189E61400DDBC40 /* ContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5922C9851189E61400DDBC40 /* ContactsViewController.xib */; };
+		59F1D8981190026700AEF2FA /* libThree20.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F1D8931190022900AEF2FA /* libThree20.a */; };
+		59F1D8A11190035200AEF2FA /* Three20.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 59F1D8A01190035200AEF2FA /* Three20.bundle */; };
+		59F1D8CD1190037100AEF2FA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 59F1D8CC1190037100AEF2FA /* QuartzCore.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		59F1D8921190022900AEF2FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F1D88A1190022900AEF2FA /* Three20.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = BEF31F3A0F352DF5000DE5D2 /* libThree20.a */;
+			remoteInfo = Three20;
+		};
+		59F1D8941190022900AEF2FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F1D88A1190022900AEF2FA /* Three20.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = EB9E6C6210B6A8F800DE563C /* UnitTests.octest */;
+			remoteInfo = UnitTests;
+		};
+		59F1D89A119002A500AEF2FA /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 59F1D88A1190022900AEF2FA /* Three20.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = BEF31F390F352DF5000DE5D2 /* Three20 */;
+			remoteInfo = Three20;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		1D30AB110D05D00D00671497 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -52,6 +79,9 @@
 		5922C9831189E61400DDBC40 /* ContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactsViewController.h; sourceTree = "<group>"; };
 		5922C9841189E61400DDBC40 /* ContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactsViewController.m; sourceTree = "<group>"; };
 		5922C9851189E61400DDBC40 /* ContactsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = ContactsViewController.xib; path = Classes/ContactsViewController.xib; sourceTree = "<group>"; };
+		59F1D88A1190022900AEF2FA /* Three20.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Three20.xcodeproj; path = Vendor/Three20/src/Three20.xcodeproj; sourceTree = "<group>"; };
+		59F1D8A01190035200AEF2FA /* Three20.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = Three20.bundle; path = Vendor/Three20/src/Three20.bundle; sourceTree = "<group>"; };
+		59F1D8CC1190037100AEF2FA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* CoreDataContactsAndGroups-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "CoreDataContactsAndGroups-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -64,6 +94,8 @@
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
 				288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */,
 				28D801B40F44B63D00FB423F /* CoreData.framework in Frameworks */,
+				59F1D8981190026700AEF2FA /* libThree20.a in Frameworks */,
+				59F1D8CD1190037100AEF2FA /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +133,7 @@
 			isa = PBXGroup;
 			children = (
 				5915A6FB118B033200791FF2 /* Test.sqlite */,
+				59F1D88A1190022900AEF2FA /* Three20.xcodeproj */,
 				080E96DDFE201D6D7F000001 /* Classes */,
 				29B97315FDCFA39411CA2CEA /* Other Sources */,
 				29B97317FDCFA39411CA2CEA /* Resources */,
@@ -122,6 +155,7 @@
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				59F1D8A01190035200AEF2FA /* Three20.bundle */,
 				5922C9851189E61400DDBC40 /* ContactsViewController.xib */,
 				5922C8FF1189DF0A00DDBC40 /* GroupsViewController.xib */,
 				5922C7711189B0D800DDBC40 /* ContactsAndGroupsViewController.xib */,
@@ -139,8 +173,18 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 				288765A40DF7441C002DB57D /* CoreGraphics.framework */,
 				28D801B30F44B63D00FB423F /* CoreData.framework */,
+				59F1D8CC1190037100AEF2FA /* QuartzCore.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		59F1D88B1190022900AEF2FA /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				59F1D8931190022900AEF2FA /* libThree20.a */,
+				59F1D8951190022900AEF2FA /* UnitTests.octest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -157,6 +201,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				59F1D89B119002A500AEF2FA /* PBXTargetDependency */,
 			);
 			name = CoreDataContactsAndGroups;
 			productName = CoreDataContactsAndGroups;
@@ -173,12 +218,35 @@
 			hasScannedForEncodings = 1;
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CustomTemplate */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 59F1D88B1190022900AEF2FA /* Products */;
+					ProjectRef = 59F1D88A1190022900AEF2FA /* Three20.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				1D6058900D05DD3D006BFB54 /* CoreDataContactsAndGroups */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		59F1D8931190022900AEF2FA /* libThree20.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libThree20.a;
+			remoteRef = 59F1D8921190022900AEF2FA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		59F1D8951190022900AEF2FA /* UnitTests.octest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = UnitTests.octest;
+			remoteRef = 59F1D8941190022900AEF2FA /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		1D60588D0D05DD3D006BFB54 /* Resources */ = {
@@ -190,6 +258,7 @@
 				5922C9011189DF0A00DDBC40 /* GroupsViewController.xib in Resources */,
 				5922C9871189E61400DDBC40 /* ContactsViewController.xib in Resources */,
 				5915A6FC118B033200791FF2 /* Test.sqlite in Resources */,
+				59F1D8A11190035200AEF2FA /* Three20.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +281,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		59F1D89B119002A500AEF2FA /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = Three20;
+			targetProxy = 59F1D89A119002A500AEF2FA /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		1D6058940D05DD3E006BFB54 /* Debug */ = {
@@ -249,6 +326,11 @@
 				GCC_C_LANGUAGE_STANDARD = c99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = Vendor/Three20/src;
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PREBINDING = NO;
 				SDKROOT = iphoneos3.1.3;
 			};

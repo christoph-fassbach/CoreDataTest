@@ -10,6 +10,7 @@
 #import "ContactsAndGroupsViewController.h"
 #import "GroupsViewController.h"
 #import "ContactsViewController.h"
+#import "Three20/Three20.h"
 
 @implementation CoreDataContactsAndGroupsAppDelegate
 
@@ -37,7 +38,19 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 #pragma mark Application lifecycle
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {    
+	TTNavigator* navigator = [TTNavigator navigator];
+	navigator.window = window;
+	navigator.persistenceMode = TTNavigatorPersistenceModeAll;
+
+	TTURLMap* map = navigator.URLMap;
+	[map from:@"tt://groups/(initWithNibName:)" toViewController:[GroupsViewController class]];
+	[map from:@"tt://contacts/(initWithNibName:)/(forGroupName:)" toViewController:[ContactsViewController class]];
 	
+	if (![navigator restoreViewControllers]) {
+		[navigator openURLAction:[[TTURLAction actionWithURLPath:@"tt://groups/GroupsViewController"] applyAnimated:YES]];
+	}
+
+#if 0
     // Override point for customization after application launch
 	NSMutableData* data = [[NSMutableData alloc] initWithContentsOfFile:[NSString stringWithFormat:@"%@/persistence", [self applicationDocumentsDirectory]]];
 	if ( data ) {
@@ -56,6 +69,7 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 	}
 	
 	[window addSubview: navigationController.view];
+#endif
 	[window makeKeyAndVisible];
 	
 	return YES;
@@ -66,7 +80,7 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 	[NSFetchedResultsController deleteCacheWithName:@"GroupsCache"];
 	// save DB if needed
 	[self applicationWillTerminate:application];
-	
+#if 0
 	// save view state
 	NSMutableData* data = [[NSMutableData alloc] init];
 	NSKeyedArchiver* archiver = [[NSKeyedArchiver alloc] initForWritingWithMutableData:data];
@@ -83,7 +97,8 @@ static NSString* dbFilename = @"CoreDataContactsAndGroups.sqlite";
 	[archiver release];
 	BOOL success = [data writeToFile:[NSString stringWithFormat:@"%@/persistence", [self applicationDocumentsDirectory]] atomically:YES];
 	[data release];
-	NSLog(@"Persistence written %d", success);
+#endif
+	// NSLog(@"Persistence written %d", success);
 }
 
 /**

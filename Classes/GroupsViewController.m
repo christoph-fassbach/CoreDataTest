@@ -10,6 +10,7 @@
 #import "ContactsViewController.h"
 #import "Group.h"
 #import "CoreDataContactsAndGroupsAppDelegate.h"
+#import "Three20/Three20.h"
 
 @implementation GroupsViewController
 
@@ -26,8 +27,13 @@
 }
 
 // This one will never be called, IF the instance is brought up by the Interface Builder Connections!
+- (id)initWithNibName:(NSString *)nibName {
+	return [self initWithNibName:nibName bundle:nil];
+}
+
+// This one will never be called, IF the instance is brought up by the Interface Builder Connections!
 - (id)initWithNibName:(NSString *)nibName bundle:(NSBundle *)nibBundle {
-	if (self == [super initWithNibName:nibName bundle:nibBundle]) {
+	if (self = [super initWithNibName:nibName bundle:nibBundle]) {
 		self.managedObjectContext = [(CoreDataContactsAndGroupsAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
 	}
 
@@ -121,6 +127,13 @@
 
 - (void)tableView:(UITableView *)table didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 	[table deselectRowAtIndexPath:indexPath animated:YES];
+
+	Group *group = [fetchedResultsController objectAtIndexPath:indexPath];
+	NSString *urlString = [NSString stringWithFormat:@"tt://contacts/ContactsViewController/%@", group.groupName];
+	NSLog( @"%@", urlString );
+	[[TTNavigator navigator] openURLAction:[[TTURLAction actionWithURLPath:urlString] applyAnimated:YES]];	
+
+	/*
 	//TODO: is there a memory leak in the next line?
 	ContactsViewController *contactsViewController = [[ContactsViewController alloc] initWithNibName:@"ContactsViewController" bundle:nil];
 	contactsViewController.managedObjectContext = self.managedObjectContext;
@@ -128,6 +141,7 @@
 	contactsViewController.groupName = group.groupName;
 	[self.navigationController pushViewController:contactsViewController animated:YES];
 	[contactsViewController release];
+	 */
 }
 
 #pragma mark -

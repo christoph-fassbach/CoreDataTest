@@ -7,6 +7,7 @@
 //
 
 #import "ContactsViewController.h"
+#import "CoreDataContactsAndGroupsAppDelegate.h"
 
 #import "Group.h"
 #import "Contact.h"
@@ -17,12 +18,19 @@
 @synthesize managedObjectContext;
 @synthesize groupName;
 
+- (id)initWithNibName:(NSString *)nibName forGroupName:(NSString *)groupsName {
+	if ( self = [self initWithNibName:nibName bundle:nil] ) {
+		self.groupName = groupsName;
+		self.managedObjectContext = [(CoreDataContactsAndGroupsAppDelegate *)[[UIApplication sharedApplication] delegate] managedObjectContext];
+	}
+	return self;
+}
 
 - (void)dealloc {
 	[table release];
 	[managedObjectContext release];
 	[fetchedResultsController release];
-	
+
     [super dealloc];
 }
 
